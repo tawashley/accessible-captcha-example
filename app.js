@@ -22,7 +22,21 @@ app.post('/submitCaptcha', function (req, res) {
 		var message = (captchaValidated) ? 'Correct!' : 'Incorrect!' ;
 		res.send(message);
 	})
+});
 
+app.get('/submitCaptchaApi', function (req, res) {
+	console.log(req.query);
+
+	captchaService.validateCaptcha(req.query.captchaInput, function(captchaValidated) {
+		var message = (captchaValidated) ? 'Correct!' : 'Incorrect!' ;
+		res.send(message);
+	})
+
+	// captchaService.validateCaptcha(req.body.captchaInput, function(captchaValidated) {
+	// 	res.json({
+	// 		correct: captchaValidated
+	// 	});
+	// })
 });
 
 app.listen(3000, function () {
