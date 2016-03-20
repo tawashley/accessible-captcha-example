@@ -8,12 +8,14 @@
 	<h1>Gotta CAPTCHA them all!</h1>
 
 	<form action="/submitCaptcha" method="POST" data-captcha-form>
-		<p data-captcha-answer></p>
+		<p data-captcha-question>Getting captcha question...</p>
 		<label for="captchaInput">Captcha Answer: </label>
-		<input type="text" id="captchaInput" name="captchaInput" data-captcha-value/>
+		<input type="text" id="captchaInput" name="captchaInput" required data-captcha-value/>
 		<button type="submit">Submit Answer</button>
+		<p data-captcha-answer></p>
 	</form>
 
-	<script type="text/javascript" src="script.js"></script>
+	<script type="text/javascript" src="helpers.js"></script>
+	<script type="text/javascript" src="main.js"></script>
 </body>
 </html>

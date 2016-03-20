@@ -13,33 +13,29 @@ app.use(express.static(__dirname + '/public'));
 
 app.get('/getCaptcha', function (req, res) {
 	captchaService.getCaptcha(function(captchaData) {
-  		res.send(captchaData);
+  		res.json({	
+  			question: captchaData.q
+  		});
 	});
 });
 
 app.post('/submitCaptcha', function (req, res) {
-	captchaService.validateCaptcha(req.body.captchaInput, function(captchaValidated) {
-		var message = (captchaValidated) ? 'Correct!' : 'Incorrect!' ;
-		res.send(message);
-	})
+	handleCaptchaInput(req, res);
 });
 
 app.get('/submitCaptchaApi', function (req, res) {
-	console.log(req.query);
-
-	captchaService.validateCaptcha(req.query.captchaInput, function(captchaValidated) {
-		var message = (captchaValidated) ? 'Correct!' : 'Incorrect!' ;
-		res.send(message);
-	})
-
-	// captchaService.validateCaptcha(req.body.captchaInput, function(captchaValidated) {
-	// 	res.json({
-	// 		correct: captchaValidated
-	// 	});
-	// })
+	handleCaptchaInput(req, res);
 });
 
 app.listen(3000, function () {
-  console.log('Example app listening on port 3000!');
+  console.log('App reading and waiting on localhost:3000');
 });
 
+function handleCaptchaInput(request, response) {
+	var captchaInput = request.query.captchaInput || request.body.captchaInput;
+
+	captchaService.validateCaptcha(captchaInput, function(captchaValidated) {
+		var message = (captchaValidated) ? 'Correct!' : 'Incorrect!' ;
+		response.send(message);
+	})
+}

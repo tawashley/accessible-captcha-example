@@ -9,7 +9,7 @@ captchaServiceApi.getCaptcha = function(callback) {
 	  if (!error && response.statusCode == 200) {
 	  	_captchaData = JSON.parse(body);
 
-	    callback(body);
+	    callback(_captchaData);
 	  }
 	})
 }
