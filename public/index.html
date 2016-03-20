@@ -6,6 +6,14 @@
 </head>
 <body>
 	<h1>Gotta CAPTCHA them all!</h1>
+
+	<form action="/submitCaptcha" method="POST" data-captcha-form>
+		<p data-captcha-answer></p>
+		<label for="captchaInput">Captcha Answer: </label>
+		<input type="text" id="captchaInput" name="captchaInput"/>
+		<button type="submit">Submit Answer</button>
+	</form>
+
 	<script type="text/javascript" src="script.js"></script>
 </body>
 </html>

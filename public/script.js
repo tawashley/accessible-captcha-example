@@ -2,6 +2,17 @@
 
 	function init() {
 		hitApi();
+		bindEvents();
+	}
+
+	function bindEvents() {
+		var form = document.querySelector('[data-captcha-form]');
+
+		console.dir(form);
+
+		// form.addEventListener('submit', function(event) {
+		// 	event.preventDefault();
+		// })
 	}
 
 	function hitApi() {
@@ -11,11 +22,9 @@
 		request.onload = function() {
 		  if (this.status >= 200 && this.status < 400) {
 		    // Success!
-		    var data = JSON.parse(this.response);
-		    handleResponse(data)
+		    handleResponse(JSON.parse(this.response))
 		  } else {
 		    // We reached our target server, but it returned an error
-
 		  }
 		};
 
@@ -27,7 +36,9 @@
 	}
 
 	function handleResponse(captchaJson) {
-		console.log(captchaJson);
+		var questionElement = document.querySelector('[data-captcha-answer]');
+
+		questionElement.innerHTML = captchaJson.q;
 	}
 
 	init();
