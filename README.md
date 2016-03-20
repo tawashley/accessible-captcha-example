@@ -5,6 +5,8 @@ Uses the [http://textcaptcha.com/](Text CAPTCHA API) to generate a text-based CA
 
 "Code does it's job but kinda, probably, totally isn't production ready"™
 
+![Accessible CAPTCHA example image](https://raw.githubusercontent.com/tawashley/accessible-captcha-example/master/demo.gif)
+
 # Installation
 
 * Clone this repo
