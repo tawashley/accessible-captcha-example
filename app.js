@@ -36,6 +36,9 @@ function handleCaptchaInput(request, response) {
 
 	captchaService.validateCaptcha(captchaInput, function(captchaValidated) {
 		var message = (captchaValidated) ? 'Correct!' : 'Incorrect!' ;
-		response.send(message);
+		response.json({
+			isCorrect: captchaValidated,
+			text: message
+		});
 	})
 }

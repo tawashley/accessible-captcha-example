@@ -4,8 +4,13 @@ var md5 = require('md5');
 var _captchaData;
 var captchaServiceApi = {};
 
+var API_BASE_URL = "http://api.textcaptcha.com/"
+var API_ID = "trisashley@gmail.com"
+var API_FORMAT = ".json"
+
+
 captchaServiceApi.getCaptcha = function(callback) {
-	request('http://api.textcaptcha.com/bob.json', function (error, response, body) {
+	request(getCaptchaApiUrl(), function (error, response, body) {
 	  if (!error && response.statusCode == 200) {
 	  	_captchaData = JSON.parse(body);
 
@@ -26,6 +31,10 @@ captchaServiceApi.validateCaptcha = function(answer, callback) {
 	}
 
 	callback(isCorrect);
+}
+
+function getCaptchaApiUrl() {
+	return API_BASE_URL + API_ID + API_FORMAT;
 }
 
 module.exports = captchaServiceApi;
