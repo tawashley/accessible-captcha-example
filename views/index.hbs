@@ -9,7 +9,7 @@
 	<h1>Gotta CAPTCHA them all!</h1>
 
 	<form action="/submitCaptcha" method="POST" data-captcha-form>
-		<p data-captcha-question>Getting captcha question...</p>
+		<p data-captcha-question>{{ question }}</p>
 		<label for="captchaInput">Captcha Answer: </label>
 		<input type="text" id="captchaInput" name="captchaInput" required data-captcha-value/>
 		<button type="submit">Submit Answer</button>

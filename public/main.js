@@ -1,7 +1,6 @@
 (function(helpers, undefined) {
 
 	function init() {
-		getCaptcha();
 		bindEvents();
 	}
 
@@ -32,20 +31,6 @@
 		resultOutput.classList.add(CssClass);
 
 		resultOutput.innerHTML = data.text;
-	}
-
-	function getCaptcha() {
-		helpers.request({
-			method: 'GET',
-			url: '/getCaptcha',
-			json: true,
-			complete: outputCaptchaQuestion
-		})
-	}
-
-	function outputCaptchaQuestion(captchaJson) {
-		var questionElement = document.querySelector('[data-captcha-question]');
-		questionElement.innerHTML = captchaJson.question;
 	}
 
 	init();

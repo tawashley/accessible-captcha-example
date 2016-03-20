@@ -4,6 +4,9 @@ var app = express();
 
 var captchaService = require('./captchaService');
 
+app.set('view engine', 'hbs');
+app.set('views', __dirname + '/views')
+
 app.use(bodyParser.json() );
 app.use(bodyParser.urlencoded({
   extended: true
@@ -11,34 +14,36 @@ app.use(bodyParser.urlencoded({
 
 app.use(express.static(__dirname + '/public'));
 
-app.get('/getCaptcha', function (req, res) {
+app.get('/', function(req, res) {
 	captchaService.getCaptcha(function(captchaData) {
-  		res.json({	
+  		res.render('index', {	
   			question: captchaData.q
   		});
 	});
-});
+})
 
 app.post('/submitCaptcha', function (req, res) {
-	handleCaptchaInput(req, res);
+	captchaService.validateCaptcha(req.body.captchaInput, function(captchaValidated) {
+		var message = (captchaValidated) ? 'Correct!' : 'Incorrect!';
+
+		res.render('captureSubmitted', {
+			isCorrect: captchaValidated,
+			text: message
+		});
+	})
 });
 
 app.get('/submitCaptchaApi', function (req, res) {
-	handleCaptchaInput(req, res);
+	captchaService.validateCaptcha(req.query.captchaInput, function(captchaValidated) {
+		var message = (captchaValidated) ? 'Correct!' : 'Incorrect!';
+
+		res.json({
+			isCorrect: captchaValidated,
+			text: message
+		});
+	})
 });
 
 app.listen(3000, function () {
   console.log('App reading and waiting on localhost:3000');
 });
-
-function handleCaptchaInput(request, response) {
-	var captchaInput = request.query.captchaInput || request.body.captchaInput;
-
-	captchaService.validateCaptcha(captchaInput, function(captchaValidated) {
-		var message = (captchaValidated) ? 'Correct!' : 'Incorrect!' ;
-		response.json({
-			isCorrect: captchaValidated,
-			text: message
-		});
-	})
-}
