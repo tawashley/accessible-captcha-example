@@ -10,13 +10,13 @@ app.set('views', __dirname + '/views')
 app.use(bodyParser.json() );
 app.use(bodyParser.urlencoded({
   extended: true
-})); 
+}));
 
 app.use(express.static(__dirname + '/public'));
 
 app.get('/', function(req, res) {
 	captchaService.getCaptcha(function(captchaData) {
-  		res.render('index', {	
+  		res.render('index', {
   			question: captchaData.q
   		});
 	});
@@ -45,5 +45,5 @@ app.get('/submitCaptchaApi', function (req, res) {
 });
 
 app.listen(3000, function () {
-  console.log('App reading and waiting on localhost:3000');
+  console.log('App reading and waiting on http://localhost:3000');
 });
